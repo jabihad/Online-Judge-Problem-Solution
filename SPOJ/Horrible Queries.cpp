@@ -6,12 +6,13 @@ ll tree1[100005], tree2[100005];
 int n;
 ll query(ll* ft, int idx)
 {
-	ll sum = 0;
-	while(idx>0){
+    ll sum = 0;
+    while(idx>0)
+    {
         sum += ft[idx];
         idx -= idx & (-idx);
-	}
-	return sum;
+    }
+    return sum;
 }
 ll range_query(int i, int j)
 {
@@ -23,39 +24,45 @@ ll range_query(int i, int j)
 }
 void update(ll* ft, int idx, ll v)
 {
-	while(idx<=n){
+    while(idx<=n)
+    {
         ft[idx] += v;
         idx += idx & (-idx);
-	}
+    }
 }
-void range_update(int i, int j, ll v)	{
-	update(tree1, i, v);
-	update(tree1, j + 1, -v);
-	update(tree2, i, v * (i - 1));
-	update(tree2, j + 1, -v * j);
+void range_update(int i, int j, ll v)
+{
+    update(tree1, i, v);
+    update(tree1, j + 1, -v);
+    update(tree2, i, v * (i - 1));
+    update(tree2, j + 1, -v * j);
 }
 
-int main()  {
-	int i, j, k, t, q, x, y, cmd;
+int main()
+{
+    int i, j, k, t, q, x, y, cmd;
     ll v;
-	scanf("%d", &t);
-	for(i=1;i<=t;i++){
+    scanf("%d", &t);
+    for(i=1; i<=t; i++)
+    {
 
         scanf("%d%d", &n, &q);
 
-		memset(tree1, 0, sizeof tree1);
-		memset(tree2, 0, sizeof tree2);
+        memset(tree1, 0, sizeof tree1);
+        memset(tree2, 0, sizeof tree2);
 
-		while (q--)	{
-			scanf("%d%d%d", &cmd, &x, &y);
-			if(cmd == 0){
+        while (q--)
+        {
+            scanf("%d%d%d", &cmd, &x, &y);
+            if(cmd == 0)
+            {
                 scanf("%lld", &v);
                 range_update(x, y, v);
-			}
-			else
+            }
+            else
                 printf("%lld\n", range_query(x, y));
-		}
-	}
+        }
+    }
     return 0;
 }
 
